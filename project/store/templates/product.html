@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <br/>
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="text-center">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <br/>
+                        <p class="card-text justified">{{ product.description }}</p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        {% if product.is_sale %}
+                        <span style="color: red; font-size: 1.2em;">Satıldı!</span>
+                            <br/>
+                            <strike>{{ product.price }} ₺</strike>
+                            <br/>
+                            {{ product.sale_price }} ₺
+                        {% else %}
+                            {{ product.price }} ₺
+                            <br/>
+                            {% comment %} ID:{{product.id}} {% endcomment %}
+                        {% endif %}
+                        <br/><br/>
+                        <div class="row justify-content-center">
+                            <div class="col-md-2">Adet:</div>
+                            <div class="col-md-2">
+                                <select class="form-select form-select-sm" id="qty-cart">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                  </select>
+                            </div>
+                        </div>
+                        <br/><br/>
+                        <a href="{% url 'home' %}" class="btn btn-secondary">Anasayfa</a>
+                        {% comment %} <a href="#" class="btn btn-secondary">İletişime Geçin: {{ product.added_by}}</a> {% endcomment %}
+                        <a href="{% url 'send_message' product.id %}" class="btn btn-secondary">İletişime Geçin: {{ product.added_by }}</a>
+                        <button type="button" value="{{product.id}}" class="btn btn-secondary" id="add-cart">
+                            Sepete Ekle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<!-- Yorumlar -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3 class="text-center">Yorumlar</h3>
+            {% if comments %}
+                <ul class="list-group">
+                    {% for comment in comments %}
+                        <li class="list-group-item">
+                            <strong style="color:red;">{{ comment.full_name }}</strong> - {{ comment.created_at|date:"d/m/Y H:i" }}<br>
+                            <strong>Başlık:</strong> {{ comment.title }}<br>
+                            <strong>Yıldız Derecelendirmesi:</strong> <strong style="color:orange;">{{ comment.rating }}</strong><br>
+                            <strong>Yorum:</strong><br>
+                            {{ comment.comment }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-center">Henüz yorum yok.İlk yorumu siz yapın!</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+<!-- Yorum Formu -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h3 class="text-center">Yorum Yap</h3>
+            <form method="post" id="comment-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="full-name" class="form-label">İsim Soyisim</label>
+                    <input type="text" class="form-control" id="full-name" name="full_name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Başlık</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Yıldız Derecelendirmesi</label>
+                    <select class="form-select" id="rating" name="rating" style="color:orange;" required>
+                        <option value="1">1 Yıldız</option>
+                        <option value="2">2 Yıldız</option>
+                        <option value="3">3 Yıldız</option>
+                        <option value="4">4 Yıldız</option>
+                        <option value="5">5 Yıldız</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Yorum</label>
+                    <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-dark">Yorum Yap</button>
+            </form>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+
+<h3 class="text-center">Kullanıcılar Bu Ürünleri de Sipariş Etti</h3>
+<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+    {% for related_product in related_products %}
+        <div class="col mb-5">
+            <div class="card h-100">
+                <img class="card-img-top" src="{{ related_product.image.url }}" alt="..." />
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <h5 class="fw-bolder">{{ related_product.name }}</h5>
+                        {{ related_product.price }} ₺
+                    </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{% url 'product' related_product.pk %}">Ürüne Git</a></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<script>
+    $(document).on('click', '#add-cart', function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'cart_add' %}',
+            data: {
+                product_id: $('#add-cart').val(),
+                product_qty: $('#qty-cart option:selected').text(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post',
+            },
+            success: function(json) {
+                //console.log(json);
+                document.getElementById("cart_quantity").textContent=json.qty
+                location.reload();
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+</script>
+{% endblock %}

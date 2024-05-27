@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .genislet {
+        max-width: 800px; /* İçeriğin maksimum genişliğini belirt */
+        margin: 0 auto; /* İçeriği yatayda ortala */
+        padding-right: 15px; /* Sağa doğru boşluk bırak */
+        padding-left: 160px; /* Sola doğru boşluk bırak */
+    }
+    .list-group-item a {
+        text-decoration: none; /* Altı çizili olmasın */
+        color: grey; /* Yazı rengini gri yap */
+        font-family: cursive; /* Yazı tipini belirle */
+    }
+</style>
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">"HİTGO"</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Kategoriler</p>
+        </div>
+    </div>
+</header>
+<br/>
+<br/>
+<br/>
+
+<div class="container genislet">
+    <div class="row justify-content-center">
+        <div class="col-8 text-center">
+            <div class="card" style="width: 18rem;">
+                <img src="/media/uploads/product/category.jpg" class="card-img-top" alt="kategori">
+                <div class="card-body">
+                    <h5 class="card-title">Kategori Seç</h5>
+                    <p class="card-text">Gitmek istediğiniz kategoriye tıklayınız.</p>
+                </div>
+                {% for category in categories %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{% url 'category' category %}">{{ category }}</a></li>
+                    </ul>
+                {% endfor %}
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

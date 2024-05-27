@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Ürünü Sil</h2>
+    <p>{{ product.name }} adlı ürünü silmek istediğinizden emin misiniz?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sil</button>
+        <a href="{% url 'product_detail' product.pk %}" class="btn btn-secondary">İptal</a>
+    </form>
+</div>
+{% endblock %}

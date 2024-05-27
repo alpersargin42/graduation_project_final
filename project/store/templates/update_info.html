@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{%block content%}
+<style>
+    .address-option {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 5px;
+      }
+      
+      .address-option input[type="checkbox"] {
+        margin-right: 10px;
+      }
+      
+</style>
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Bilgileri Düzenle</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Dünya'nın Tercih Edilen Sitesi HİTGO'da Kullanıcı Bilgilerinizi Düzenleyin!</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <br/><br/>
+                <strong>Fatura Bilgileri</strong>
+                <br/><br/>
+                <form method="POST" action="{% url 'update_info' %}" >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br/><br/>
+                    <strong>Teslimat Bilgileri</strong>
+                    <br/><br/>
+                    {{ shipping_form.as_p }}
+                    <center>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </center>
+                </form>
+                <br/><br/>
+                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>   
+            </div>
+        </div>
+    </div>
+    {% endblock %}

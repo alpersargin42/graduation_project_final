@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Header-->
+        
+
+        <div class="container">
+        	<div class="row">
+        		<center>
+        			<div class="col-8">
+        				<br/><br/>
+<div class="card">
+  <div class="card-header">
+    Sipariş {{ order.id}} - {{order.amount_paid}} TL
+  </div>
+  <div class="card-body">
+    Email: {{ order.email}}<br/>
+    {% if order.date_shipped %}
+      Teslim Tarihi: {{ order.date_shipped}}
+    {% else %}
+     Sipariş Tarihi: {{ order.date_ordered}}
+    {% endif %}
+    <br/><br/>
+    {{ order.full_name }}<br/>
+    <pre>{{ order.shipping_address }}
+    </pre>
+    {% for item in items %}
+      Ürün: {{ item.product }} - {{ item.quantity }} Adet - Adet Fiyatı: {{ item.price }} TL<br/>
+
+    {% endfor %}
+
+
+  </div>
+</div>
+<br/>
+
+<br/><br/>
+        			</div>
+        		</center>
+        	</div>
+        </div>
+
+{% endblock %}

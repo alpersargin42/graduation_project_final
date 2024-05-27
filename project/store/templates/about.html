@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{%block content%}
+<style>
+    .block-item {
+        width: 50%;
+        padding: 20px;
+    }
+    .facebook {
+        background: #3a589e;
+        color: #fff;
+    }
+
+    .twitter {
+        background: #429cd6;
+        color: #fff;
+    }
+    .github{
+        background-color: black;
+        color: white; 
+        transition: color 0.3s;
+    }
+    .google {
+        background: #d34836;
+        color: #fff;
+    }
+
+    .ortala {
+        margin-top: 3%;
+        text-align: center;
+    }
+    
+    .ortala img {
+        max-width: 50%; /* Sayfa genişliğinin yarısı kadar küçült */
+        max-height: 50%; /* Sayfa yüksekliğinin yarısı kadar küçült */
+        display: inline-block;
+    }
+    .ortala_s {
+        margin-top: 3%;
+        margin-left: 30%;
+        
+    }
+</style>
+
+<body>
+    <div class="block-item ortala_s">
+        <a href="https://www.facebook.com/aaavf/">
+            <button class="btn facebook"><i
+                    class="bi-facebook"></i><span> Facebook</span></button></a>
+        <a href="https://twitter.com/sargin_alper">
+            <button class="btn twitter"><i
+                    class="bi-twitter"></i><span> Twitter</span></button></a>
+        <a href="https://www.instagram.com/alper_sargn/">
+            <button class="btn google"><i
+                    class="bi-instagram"></i><span> İnstagram</span></button></a>
+
+        <a href="https://www.linkedin.com/in/alper-sarg%C4%B1n-b14125201/">
+            <button class="btn twitter"><i
+                    class="bi-linkedin"></i><span> LinkedIn</span></button></a>
+
+        <a href="https://github.com/alpersargin42">
+           <button class="btn github"><i class="bi-github"></i><span> Github</span></button>
+         </a>
+    </div>
+
+    <div className="form" class="ortala">
+        <div>
+            <img className="img-fluid rounded-start" src="https://github.com/alpersargin42/_Djangobasic/blob/main/Django/course_codes/courses/static/courses/img/5.jpg?raw=true" alt="Resim Açıklaması">
+        </div>
+        <br/><br/><br/><br/><br/>
+    </div>
+</body>
+
+
+{% endblock %}

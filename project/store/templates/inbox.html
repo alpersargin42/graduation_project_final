@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br/>
+<div class="container">
+    <h2>Gelen Mesajlar</h2>
+    <ul class="list-group">
+        {% for message in messages %}
+        <li class="list-group-item">
+            <div>
+                <strong>{{ message.receiver.username }}</strong> - {{ message.timestamp|date:"d M Y H:i" }}-{{message.product}}
+            </div>
+            <div>
+                <strong>Konu:</strong> {{ message.subject }}
+            </div>
+            <div>
+                {{ message.body }}
+            </div>
+        </li>
+        {% empty %}
+        <li class="list-group-item">Gelen mesajınız yok.</li>
+        {% endfor %}
+    </ul>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+{% endblock %}

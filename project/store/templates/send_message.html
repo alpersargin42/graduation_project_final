@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<div class="container">
+    <h2>Mesaj Gönder</h2>
+    <p><strong>{{ product.name }}</strong> adlı ürün için {{ receiver.username }} kullanıcısına mesaj gönderiyorsunuz.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Gönder</button>
+    </form>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+{% endblock %}

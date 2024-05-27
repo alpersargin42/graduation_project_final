@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="{% url 'home' %}">HİTGO</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'home' %}">Anasayfa</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">Hakkımda</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">Alışveriş</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'home' %}">Tüm Ürünler</a></li><hr>
+                        <li><a class="dropdown-item" href="{% url 'category_summary' %}">Kategoriler</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'search' %}">Ara</a></li>
+            </ul>
+            
+            <form class="d-flex">
+                <a href="{%url 'cart_summary'%}" class="btn btn-outline-dark">
+                    <i class="bi-cart-fill me-1"></i>
+                    Sepet
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">
+                        {{cart|length}}
+
+                    </span>
+                </a>
+            </form>
+            
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'update_user' %}">Profili Düzenle</a></li> {% endcomment %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Kullanıcı İşlemleri</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Kullanıcı İşlemleri</a>
+                            <hr>
+                            <li><a class="dropdown-item" href="{% url 'update_user' %}">Profili Düzenle</a></li>
+                            <li><a class="dropdown-item" href="{% url 'update_password' %}">Şifreyi Güncelle</a></li>
+                            <li><a class="dropdown-item" href="{% url 'update_info' %}">Bilgileri Düzenle</a></li>
+                            <hr>
+                            <li><a class="dropdown-item" href="{% url 'inbox' %}">Gelen Mesajlar</a></li>
+                            <li><a class="dropdown-item" href="{% url 'sent_messages' %}">Gönderilen Mesajlar</a></li>
+                            <hr>
+                            <li><a class="dropdown-item" href="{% url 'product_process' %}">Ürün İşlemleri</a></li>
+                        </ul>
+                    </li>
+                    {%if user.is_superuser%}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Kargo İşlemleri</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'shipped_dash' %}">Gönderilen Ürünler</a></li>
+                            <li><a class="dropdown-item" href="{% url 'not_shipped_dash' %}">Gönderilmeyen Ürünler</a></li>
+                        </ul>
+                    </li>
+                    {%endif%}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Çıkış yap</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Giriş Yap</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Kayıt Ol</a></li>
+                {% endif %}
+            </ul>
+            
+        </div>
+    </div>
+</nav>

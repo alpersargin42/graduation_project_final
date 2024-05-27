@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Alışveriş Bilgileri</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Sepetinizi Onaylayın...</p>
+                </div>
+            </div>
+        </header>
+        <br/>
+        <div class="container">
+            <div class="row">
+                
+                    <div class="col-md-6 offset-md-3">
+          <div class="card">
+          <div class="card-header">
+            Siparişiniz
+          </div>
+          <div class="card-body">
+            {% for product in cart_products %}
+                {{ product.name }}: 
+                    {% if product.is_sale %}
+                        {{ product.sale_price }} ₺
+                    {% else %}
+                        {{ product.price }} ₺
+                {% endif %}
+
+                <br/>
+                <small>Adet: 
+                {% for key, value in quantities.items %}
+                    {% if key == product.id|slugify %}
+                        {{ value }}
+                    {% endif %}
+                {% endfor %}</small>
+                <br/><br/>
+
+            {% endfor %}
+            Toplam:  {{ totals }} ₺
+            <br/><br/>
+            <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-outline-secondary">Sepet Güncelle</a>
+          </div>
+        </div>
+<br/><br/>
+<div class="card">
+  <div class="card-header">
+    Alışveriş Bilgileri
+  </div>
+  <div class="card-body">
+    Ad Soyad:{{ shipping_info.shipping_full_name}}<br/><br/>
+    Mail Adresi:{{ shipping_info.shipping_email}}<br/><br/>
+    Ev Adresi:{{ shipping_info.shipping_address1}}<br/><br/>
+    İş Adresi:{{ shipping_info.shipping_address2}}<br/><br/>
+    Şehir:{{ shipping_info.shipping_city}}<br/><br/>
+    İlçe:{{ shipping_info.shipping_state}}<br/><br/>
+    Posta Kodu:{{ shipping_info.shipping_zipcode}}<br/><br/>
+    Ülke:{{ shipping_info.shipping_country}}<br/><br/>
+    Teslimat Yeri:{{ shipping_info.ev_or_is}}<br/>
+  </div>
+</div>
+<br/>
+<div class="card">
+    <div class="card-header">
+      Ödeme Bilgisi
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{% url 'process_order' %}">
+        {% csrf_token %}
+      {{ billing_form.as_p }}
+      
+    </div>
+  </div>
+  <br/>
+<button type="submit" class="btn btn-secondary">Ödeme Yap</button>
+</form>
+<br/><br/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+{% endblock %}
